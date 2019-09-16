@@ -435,6 +435,7 @@ class Specs(SpecSet):
     proc_snmp_ipv4 = RegistryPoint()
     proc_snmp_ipv6 = RegistryPoint()
     proc_stat = RegistryPoint()
+    proc_sys_vm_files = RegistryPoint()
     ps_alxwww = RegistryPoint(filterable=True)
     ps_aux = RegistryPoint(filterable=True)
     ps_auxcww = RegistryPoint()

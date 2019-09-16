@@ -714,6 +714,13 @@ class DefaultSpecs(Specs):
     proc_snmp_ipv4 = simple_file("proc/net/snmp")
     proc_snmp_ipv6 = simple_file("proc/net/snmp6")
     proc_stat = simple_file("proc/stat")
+    # TODO proc_sys_vm directory listing
+    proc_sys_vm_files = listdir("/proc/sys/vm/")
+    
+    # @datasource(proc_sys_vm_files)
+    # def proc_sys_vm_knobs(proc_sys_vm_files):
+    #     return proc_sys_vm_files
+
     pulp_worker_defaults = simple_file("etc/default/pulp_workers")
     pvs = simple_command('/sbin/pvs -a -v -o +pv_mda_free,pv_mda_size,pv_mda_count,pv_mda_used_count,pe_count --config="global{locking_type=0}"')
     pvs_noheadings = simple_command("/sbin/pvs --nameprefixes --noheadings --separator='|' -a -o pv_all,vg_name --config=\"global{locking_type=0}\"")
