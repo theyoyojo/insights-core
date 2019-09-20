@@ -132,3 +132,11 @@ class SysctlConfInitramfs(CommandParser, LogFileOutput):
             if line and not (line.startswith('#') or line.startswith(';')):
                 valid_lines.append(line)
         super(SysctlConfInitramfs, self).parse_content(valid_lines)
+
+class SysctlVm(Sysctl):
+    def parse_content(self, content):
+        super(SysctlVm, self).parse_content(content)
+        self.vm_data = {}
+        for k,v in self.data.items():
+            if k.startswith("vm"):
+                self.vm_data[k] = v

@@ -9,6 +9,13 @@ b = 2
 c = include an = sign
 """.strip()
 
+SYSCTL_VM_TEST = """
+cat.a=1
+vm.b = 2
+cat.c = include an = sign
+vm.d=5
+""".strip()
+
 SYSCTL_DOC_TEST = """
 kernel.domainname = example.com
 kernel.modprobe = /sbin/modprobe
@@ -83,3 +90,11 @@ def test_docs():
     }
     failed, total = doctest.testmod(sysctl, globs=env)
     assert failed == 0
+
+def test_sysctl():
+    r = sysctl.SysctlVm(context_wrap(SYSCTL_VM_TEST))
+    assert keys_in(["cat.a", "vm.b", "cat.c", "vm.d"], r.data)
+    assert keys_in(["vm.b", "vm.d"], r.vm_data)
+    assert not keys_in(["cat.a", "cat.c"], r.vm_data)
+    assert r.vm_data["vm.b"] == "2"
+    assert r.vm_data["vm.d"] == "5"
